@@ -154,10 +154,11 @@ const getSlideStyle = (index) => {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding: 2rem 2.75rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: visible;
 }
 
 .carousel-3d-track {
@@ -173,8 +174,7 @@ const getSlideStyle = (index) => {
 
 .carousel-3d-slide {
   position: absolute;
-  width: 380px; /* Largura fixa do slide */
-  max-width: 85%;
+  width: min(380px, 100%);
   height: 450px;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
@@ -249,21 +249,58 @@ const getSlideStyle = (index) => {
 }
 
 @media (max-width: 768px) {
+  .carousel-3d-container {
+    padding: 1rem 0 0;
+  }
+
   .carousel-3d-track {
-    height: 440px;
+    height: auto;
+    min-height: 0;
+    display: block;
+    perspective: none;
   }
   
   .carousel-3d-slide {
-    width: 290px;
-    height: 410px;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    opacity: 1 !important;
+    z-index: 1 !important;
+    margin: 0;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .carousel-3d-slide:not(.active) {
+    display: none;
   }
   
   .btn-prev {
-    left: 0px;
+    left: -4px;
   }
   
   .btn-next {
-    right: 0px;
+    right: -4px;
+  }
+
+  .carousel-btn {
+    top: auto;
+    bottom: calc(100% + 0.75rem);
+    transform: none;
+    width: 42px;
+    height: 42px;
+  }
+
+  .carousel-btn:hover {
+    transform: scale(1.06);
+  }
+
+  .carousel-dots {
+    margin-top: 1.1rem;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 </style>

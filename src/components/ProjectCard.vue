@@ -157,7 +157,7 @@ const handleMouseLeave = () => {
 .project-img-wrapper {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: clamp(180px, 28vw, 200px);
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
   transform: translateZ(20px); /* Traz a imagem ligeiramente para frente em 3D */
@@ -197,7 +197,7 @@ const handleMouseLeave = () => {
 }
 
 .project-content {
-  padding: 1.8rem;
+  padding: clamp(1rem, 2.4vw, 1.8rem);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -223,6 +223,7 @@ const handleMouseLeave = () => {
 
 .project-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
   margin-top: auto;
 }
@@ -248,5 +249,38 @@ const handleMouseLeave = () => {
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .project-card-container {
+    perspective: none;
+  }
+
+  .project-card {
+    min-height: 0;
+  }
+
+  .project-tags {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+  }
+
+  .project-title {
+    font-size: 1.12rem;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .project-links {
+    gap: 0.75rem;
+  }
 }
 </style>
