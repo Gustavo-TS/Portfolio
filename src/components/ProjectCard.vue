@@ -14,7 +14,10 @@
       <div class="card-glare" :style="glareStyle"></div>
 
       <!-- Imagem do Projeto -->
-      <div class="project-img-wrapper">
+      <div
+        class="project-img-wrapper"
+        :class="[logoVariant, { 'project-img-wrapper--logo': isLogoImage }]"
+      >
         <img
           :src="project.image"
           :alt="`Captura de tela do projeto ${project.title}`"
@@ -42,7 +45,7 @@
           <a v-if="hasLink(project.githubUrl)" :href="project.githubUrl" target="_blank" rel="noopener noreferrer" class="project-link">
             <i class="fab fa-github" aria-hidden="true"></i> {{ language === 'en' ? 'Code' : 'Código' }}
           </a>
-          <span v-if="!hasLink(project.demoUrl) && !hasLink(project.githubUrl)" class="project-status">{{ language === 'en' ? 'Case study in progress' : 'Case em documentação' }}</span>
+          <span v-if="!hasLink(project.demoUrl) && !hasLink(project.githubUrl)" class="project-status"></span>
         </div>
       </div>
     </div>
@@ -64,6 +67,18 @@ const props = defineProps({
 });
 
 const hasLink = (url) => Boolean(url && url !== '#');
+const logoVariant = computed(() => {
+  const image = props.project.image || '';
+  const title = (props.project.title || '').toLowerCase();
+  if (image.includes('fidelity.')) return 'project-img-wrapper--fidelity';
+  if (image.includes('xsfera.')) return 'project-img-wrapper--xsfera';
+  if (image.includes('maia.')) return 'project-img-wrapper--maia';
+  if (image.includes('blue-projects.') || image.includes('blueprojects')) return 'project-img-wrapper--blue-projects';
+  if (image.includes('rocha_calderon') || image.includes('rochacalderon') || title.includes('rocha calderon')) return 'project-img-wrapper--rocha-calderon';
+  if (image.includes('bttech.com.br')) return 'project-img-wrapper--bttech';
+  return '';
+});
+const isLogoImage = computed(() => Boolean(logoVariant.value));
 
 const cardRef = ref(null);
 const rotateX = ref(0);
@@ -132,12 +147,14 @@ const handleMouseLeave = () => {
 <style scoped>
 .project-card-container {
   perspective: 1000px;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
 }
 
 .project-card {
   position: relative;
-  height: 100%;
+  height: auto;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -158,7 +175,8 @@ const handleMouseLeave = () => {
 .project-img-wrapper {
   position: relative;
   width: 100%;
-  height: clamp(180px, 28vw, 200px);
+  height: 220px;
+  flex: 0 0 220px;
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
   transform: translateZ(20px); /* Traz a imagem ligeiramente para frente em 3D */
@@ -169,6 +187,34 @@ const handleMouseLeave = () => {
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-img-wrapper--logo {
+  background: rgba(100, 116, 139, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.project-img-wrapper--logo .project-img {
+  box-sizing: border-box;
+  object-fit: contain;
+  padding: 0.5rem 0.5rem 3.15rem;
+  transform: scale(var(--logo-scale, 1.12));
+}
+
+.project-img-wrapper--bttech,
+.project-img-wrapper--xsfera,
+.project-img-wrapper--maia,
+.project-img-wrapper--blue-projects {
+  --logo-scale: 1;
+}
+
+.project-img-wrapper--rocha-calderon {
+  --logo-scale: 0.95;
+}
+
+.project-card:hover .project-img-wrapper--logo .project-img {
+  transform: scale(calc(var(--logo-scale, 1.12) * 1.027));
 }
 
 .project-card:hover .project-img {
@@ -261,10 +307,19 @@ const handleMouseLeave = () => {
     min-height: 0;
   }
 
+  .project-img-wrapper {
+    height: 200px;
+    flex-basis: 200px;
+  }
+
   .project-tags {
     left: 0.75rem;
     right: 0.75rem;
     bottom: 0.75rem;
+  }
+
+  .project-img-wrapper--logo .project-img {
+    padding: 0.45rem 0.45rem 3rem;
   }
 
   .tag {

@@ -187,18 +187,22 @@ const getSlideStyle = (index) => {
 .carousel-3d-track {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: auto;
+  min-height: 520px;
   perspective: 1200px; /* Cria o ponto de fuga 3D */
   transform-style: preserve-3d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
 }
 
 .carousel-3d-slide {
-  position: absolute;
+  position: relative;
+  grid-area: 1 / 1;
+  justify-self: center;
   width: min(380px, 100%);
-  height: 450px;
+  height: auto;
+  min-height: 450px;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
   cursor: pointer;

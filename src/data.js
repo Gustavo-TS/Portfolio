@@ -11,6 +11,15 @@ const sharedProfile = {
   }
 };
 
+const projectImages = {
+  fidelity: '/assets/projects/fidelity.png',
+  xsfera: 'https://xsfera.com.br/wp-content/uploads/2022/09/Logo-2.svg',
+  maia: '/assets/projects/maia.png',
+  blueProjects: 'https://www.blueprojects.com.br/wp-content/uploads/2020/03/blueprojects-logo-headr.png',
+  rochaCalderon: 'https://rochacalderon.com.br/wp-content/uploads/2024/12/logo-30-anos_RC-07-1.png',
+  bttech: 'https://regulabt.bttech.com.br/assets/logo-small-7fd48107.png'
+};
+
 const skills = [
   { name: 'C#', category: 'Linguagens', icon: 'fas fa-code', color: '#9b4f96' },
   { name: 'JavaScript ES6+', category: 'Linguagens', icon: 'fab fa-js', color: '#f7df1e' },
@@ -89,45 +98,57 @@ export const portfolioData = {
   ],
   projects: [
     {
-      title: 'Fidelity — Corporate Banking',
-      description: 'Desenvolvimento e manutenção de APIs robustas em C#/.NET para gerenciamento de cartões e sistemas bancários empresariais de clientes como HSBC, NBC e Santander. Integrações e consultas relacionais otimizadas para consistência e baixa latência.',
-      category: 'Fintech', image: '/assets/project_dashboard.jpg', demoUrl: '#', githubUrl: '#',
+      title: 'Fidelity (HSBC/ NBC / Santander)',
+      description: 'Desenvolvimento e manutenção de APIs robustas em C# (.NET) focadas em gerenciamento de cartões e sistemas bancários empresariais (Corporate Banking). Integração APIs e otimização de consultas em bancos de dados relacionais para garantir a consistência e a baixa latência exigidas pelo setor bancário.',
+      category: 'Fintech', image: projectImages.fidelity, demoUrl: '#', githubUrl: '#',
       tags: ['C#', '.NET', 'APIs', 'SQL']
     },
     {
       title: 'Xsfera AI Assist',
-      description: 'Solução de IA para consultas regulatórias automáticas ao Banco Central do Brasil, combinando processamento de linguagem natural da OpenAI com curadoria humana especializada para elevar eficiência e precisão em compliance.',
-      category: 'Inteligência Artificial', image: '/assets/project_creative.jpg', demoUrl: '#', githubUrl: '#',
+      description: 'Desenvolvimento de uma solução de Inteligência Artificial (IA) para consultas regulatórias automáticas e instantâneas ao Banco Central do Brasil (BCB). Integração do processamento de linguagem natural da OpenAI com curadoria humana especializada, resultando em ganho significativo de eficiência e precisão para equipes de compliance.',
+      category: 'Inteligência Artificial', image: projectImages.xsfera, demoUrl: '#', githubUrl: '#',
       tags: ['JavaScript', 'SQL Server', 'OpenAI API', 'Compliance']
     },
     {
       title: 'Xsfera Capital Monitor',
-      description: 'Sistema de gestão de capital e conformidade regulatória para cálculo e controle de PRIP e PRS5, com automação de relatórios DLO para reduzir erros manuais e otimizar a operação.',
-      category: 'Fintech', image: '/assets/project_dashboard.jpg', demoUrl: '#', githubUrl: '#',
+      description: 'Projeto e implementação de um sistema de gestão de capital focado em conformidade regulatória, cálculo preciso e controle de PRIP e PRS5. Automação da geração de relatórios DLO, mitigando erros manuais e otimizando a eficiência operacional do cliente.',
+      category: 'Fintech', image: projectImages.xsfera, demoUrl: '#', githubUrl: '#',
       tags: ['JavaScript', 'SQL Server', 'AWS Lambda', 'S3', 'Serverless']
     },
     {
-      title: 'RegulaBT — BTTECH',
-      description: 'Sustentação e evolução de plataforma de acompanhamento regulatório que centraliza normativos, publicações e estudos do Banco Central. Correção de bugs críticos, refatoração de layouts e desenvolvimento de novas funcionalidades.',
-      category: 'RegTech', image: '/assets/project_crypto.jpg', demoUrl: '#', githubUrl: '#',
+      title: 'RegulaBT (BTTECH)',
+      description: 'Sustentação e evolução de plataforma voltada para o acompanhamento regulatório, centralizando normativos, publicações e estudos do Banco Central. Correção de bugs críticos, refatoração de layouts e desenvolvimento de novas telas/funcionalidades de alta usabilidade.',
+      category: 'RegTech', image: projectImages.bttech, demoUrl: '#', githubUrl: '#',
       tags: ['PostgreSQL', 'JavaScript', 'Vue.js']
     },
     {
-      title: 'Maia — Plataforma Educacional',
-      description: 'Implementação de recursos front-end com foco em acessibilidade e usabilidade para uma plataforma educacional inclusiva voltada a alunos com diferenças de aprendizagem.',
-      category: 'Educação', image: '/assets/project_creative.jpg', demoUrl: '#', githubUrl: '#',
+      title: 'Studio Juris (BTTECH)',
+      description: 'Desenvolvimento full stack de ponta a ponta (infraestrutura, APIs e interfaces) para sistema de gestão interna e acompanhamento de entregas jurídicas.',
+      category: 'Full Stack', image: projectImages.bttech, demoUrl: '#', githubUrl: '#',
+      tags: ['SQL Server', 'JavaScript', 'Vue.js']
+    },
+    {
+      title: 'Maia – Plataforma Educacional',
+      description: 'Implementação de recursos de front-end focados em acessibilidade e usabilidade para uma plataforma educacional inclusiva voltada a alunos com diferenças de aprendizagem.',
+      category: 'Educação', image: projectImages.maia, demoUrl: '#', githubUrl: '#',
       tags: ['Vue.js', 'Acessibilidade', 'UX']
     },
     {
-      title: 'EPM — Enterprise Process Manager',
-      description: 'Otimização de processos corporativos por meio do desenvolvimento e ajuste de Stored Procedures e UDFs customizadas em ferramenta interna.',
-      category: 'Enterprise', image: '/assets/project_dashboard.jpg', demoUrl: '#', githubUrl: '#',
+      title: 'EPM – Enterprise Process Manager',
+      description: 'Atuação em ferramenta interna de otimização de processos corporativos através do desenvolvimento e ajuste de Stored Procedures e UDFs customizadas.',
+      category: 'Enterprise', image: projectImages.blueProjects, demoUrl: '#', githubUrl: '#',
       tags: ['JavaScript', 'MySQL', 'Stored Procedures', 'UDFs']
     },
     {
-      title: 'Sistema Rocha Calderon',
-      description: 'Desenvolvimento full stack de ponta a ponta, incluindo infraestrutura, APIs e interfaces, para gestão interna e acompanhamento de entregas jurídicas.',
-      category: 'Full Stack', image: '/assets/project_crypto.jpg', demoUrl: '#', githubUrl: '#',
+      title: 'EPM 2 – Enterprise Process Manager',
+      description: 'Atuação no desenvolvimento do front-end da segunda versão da ferramenta interna de otimização de processos corporativos.',
+      category: 'Enterprise', image: projectImages.blueProjects, demoUrl: '#', githubUrl: '#',
+      tags: ['JavaScript', 'Vue.js', 'Front-end']
+    },
+    {
+      title: 'Escritório Rocha Calderon',
+      description: 'Desenvolvimento full stack de ponta a ponta (infraestrutura, APIs e interfaces) para sistema de gestão interna e acompanhamento de entregas jurídicas.',
+      category: 'Full Stack', image: projectImages.rochaCalderon, demoUrl: '#', githubUrl: '#',
       tags: ['SQL Server', 'JavaScript', 'Vue.js']
     }
   ]
@@ -151,12 +172,14 @@ export const portfolioContentEn = {
     { role: 'English Course', company: 'Fisk Language School', period: 'Jan 2017 – Jul 2020', description: 'Continued English-language education.', tags: ['English', 'Additional Education'] }
   ],
   projects: [
-    { title: 'Fidelity — Corporate Banking', description: 'Development and maintenance of robust C#/.NET APIs for card management and corporate banking systems serving clients such as HSBC, NBC and Santander. Optimized integrations and relational queries for consistency and low latency.', category: 'Fintech', image: '/assets/project_dashboard.jpg', demoUrl: '#', githubUrl: '#', tags: ['C#', '.NET', 'APIs', 'SQL'] },
-    { title: 'Xsfera AI Assist', description: 'AI solution for instant regulatory queries to the Central Bank of Brazil, combining OpenAI natural-language processing with specialized human curation to improve compliance efficiency and accuracy.', category: 'Artificial Intelligence', image: '/assets/project_creative.jpg', demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'SQL Server', 'OpenAI API', 'Compliance'] },
-    { title: 'Xsfera Capital Monitor', description: 'Capital management and regulatory compliance system for PRIP and PRS5 calculations and controls, including automated DLO reporting to reduce manual errors and improve operations.', category: 'Fintech', image: '/assets/project_dashboard.jpg', demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'SQL Server', 'AWS Lambda', 'S3', 'Serverless'] },
-    { title: 'RegulaBT — BTTECH', description: 'Maintenance and evolution of a regulatory monitoring platform centralizing standards, publications and Central Bank studies. Critical bug fixes, layout refactoring and new features.', category: 'RegTech', image: '/assets/project_crypto.jpg', demoUrl: '#', githubUrl: '#', tags: ['PostgreSQL', 'JavaScript', 'Vue.js'] },
-    { title: 'Maia — Educational Platform', description: 'Accessible and usable front-end features for an inclusive educational platform serving students with learning differences.', category: 'Education', image: '/assets/project_creative.jpg', demoUrl: '#', githubUrl: '#', tags: ['Vue.js', 'Accessibility', 'UX'] },
-    { title: 'EPM — Enterprise Process Manager', description: 'Corporate process optimization through the development and adjustment of custom Stored Procedures and UDFs in an internal tool.', category: 'Enterprise', image: '/assets/project_dashboard.jpg', demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'MySQL', 'Stored Procedures', 'UDFs'] },
-    { title: 'Rocha Calderon Management System', description: 'End-to-end full stack development — infrastructure, APIs and interfaces — for internal management and legal-delivery tracking.', category: 'Full Stack', image: '/assets/project_crypto.jpg', demoUrl: '#', githubUrl: '#', tags: ['SQL Server', 'JavaScript', 'Vue.js'] }
+    { title: 'Fidelity — Corporate Banking', description: 'Development and maintenance of robust C#/.NET APIs for card management and corporate banking systems serving clients such as HSBC, NBC and Santander. Optimized integrations and relational queries for consistency and low latency.', category: 'Fintech', image: projectImages.fidelity, demoUrl: '#', githubUrl: '#', tags: ['C#', '.NET', 'APIs', 'SQL'] },
+    { title: 'Xsfera AI Assist', description: 'AI solution for instant regulatory queries to the Central Bank of Brazil, combining OpenAI natural-language processing with specialized human curation to improve compliance efficiency and accuracy.', category: 'Artificial Intelligence', image: projectImages.xsfera, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'SQL Server', 'OpenAI API', 'Compliance'] },
+    { title: 'Xsfera Capital Monitor', description: 'Capital management and regulatory compliance system for PRIP and PRS5 calculations and controls, including automated DLO reporting to reduce manual errors and improve operations.', category: 'Fintech', image: projectImages.xsfera, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'SQL Server', 'AWS Lambda', 'S3', 'Serverless'] },
+    { title: 'RegulaBT — BTTECH', description: 'Maintenance and evolution of a regulatory monitoring platform centralizing standards, publications and Central Bank studies. Critical bug fixes, layout refactoring and new features.', category: 'RegTech', image: projectImages.bttech, demoUrl: '#', githubUrl: '#', tags: ['PostgreSQL', 'JavaScript', 'Vue.js'] },
+    { title: 'Maia — Educational Platform', description: 'Accessible and usable front-end features for an inclusive educational platform serving students with learning differences.', category: 'Education', image: projectImages.maia, demoUrl: '#', githubUrl: '#', tags: ['Vue.js', 'Accessibility', 'UX'] },
+    { title: 'EPM — Enterprise Process Manager', description: 'Corporate process optimization through the development and adjustment of custom Stored Procedures and UDFs in an internal tool.', category: 'Enterprise', image: projectImages.blueProjects, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'MySQL', 'Stored Procedures', 'UDFs'] },
+    { title: 'EPM 2 — Enterprise Process Manager', description: 'Front-end development for the second version of the internal corporate process optimization tool.', category: 'Enterprise', image: projectImages.blueProjects, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'Vue.js', 'Front-end'] },
+    { title: 'Rocha Calderon Management System', description: 'End-to-end full stack development — infrastructure, APIs and interfaces — for internal management and legal-delivery tracking.', category: 'Full Stack', image: projectImages.rochaCalderon, demoUrl: '#', githubUrl: '#', tags: ['SQL Server', 'JavaScript', 'Vue.js'] },
+    { title: 'Studio Juris (BTTECH)', description: 'End-to-end full stack development — infrastructure, APIs and interfaces — for internal management and legal-delivery tracking.', category: 'Full Stack', image: projectImages.bttech, demoUrl: '#', githubUrl: '#', tags: ['SQL Server', 'JavaScript', 'Vue.js'] }
   ]
 };
