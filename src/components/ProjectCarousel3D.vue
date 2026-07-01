@@ -18,7 +18,6 @@
         class="carousel-3d-slide"
         :class="getSlideClass(index)"
         :style="getSlideStyle(index)"
-        @click="handleSlideClick(index)"
       >
         <!-- Card Individual com Efeito Tilt (Somente se for o card ativo) -->
         <ProjectCard :project="project" :is-active="index === currentIndex" :language="language" />
@@ -92,13 +91,6 @@ const handleTouchEnd = (event) => {
     deltaX < 0 ? nextSlide() : prevSlide();
   }
   resetSwipe();
-};
-
-const handleSlideClick = (index) => {
-  // Se o usuário clicar em um card lateral, foca nele
-  if (index !== currentIndex.value) {
-    currentIndex.value = index;
-  }
 };
 
 // Determina classes para auxiliar no controle de ponteiro
@@ -304,6 +296,10 @@ const getSlideStyle = (index) => {
     z-index: 1 !important;
     margin: 0;
     transform: none !important;
+    pointer-events: none !important;
+  }
+
+  .carousel-3d-slide a {
     pointer-events: auto !important;
   }
 

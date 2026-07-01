@@ -23,6 +23,7 @@
           width="640"
           height="400"
           decoding="async"
+          draggable="false"
         />
         <div class="project-tags">
           <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>

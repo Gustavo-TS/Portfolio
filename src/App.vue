@@ -29,7 +29,7 @@
                 <p class="hero-desc">{{ localizedPortfolio.profile.role }}. {{ localizedPortfolio.profile.about }}</p>
                 <div class="hero-actions"><MagneticButton><button class="btn btn-primary" @click="goToSection(2)">{{ copy.viewProjects }} <i class="fas fa-arrow-right" aria-hidden="true"></i></button></MagneticButton><MagneticButton><button class="btn btn-secondary" @click="goToSection(4)">{{ copy.contact }}</button></MagneticButton></div>
               </div></div>
-              <div class="hero-visual"><div class="avatar-wrapper"><div class="glow-ring"></div><img :src="localizedPortfolio.profile.avatar" :alt="copy.avatarAlt" class="avatar-img" :style="avatarParallaxStyle"></div></div>
+              <div class="hero-visual"><div class="avatar-wrapper"><div class="glow-ring"></div><img :src="localizedPortfolio.profile.avatar" :alt="copy.avatarAlt" class="avatar-img" :style="avatarParallaxStyle" draggable="false"></div></div>
             </div>
 
         </div>
@@ -321,6 +321,22 @@ html,body{
 }
 
 @media(max-width:768px){
+  /* Conteúdo estático não captura taps nem gestos; somente controles reais. */
+  .portfolio-section > .container{
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+
+  .portfolio-section :is(a,button,input,textarea,select,.carousel-3d-track){
+    pointer-events:auto;
+  }
+
+  .portfolio-section :is(input,textarea,select){
+    user-select:text;
+    -webkit-user-select:text;
+  }
+
   .portfolio-section{
     min-height:auto;
     padding:6.5rem 0 4rem;
