@@ -6,7 +6,14 @@
     </button>
 
     <!-- Trilho 3D dos Cards -->
-    <div class="carousel-3d-track">
+    <div
+      class="carousel-3d-track"
+      @pointerdown="handlePointerDown"
+      @pointermove="handlePointerMove"
+      @pointerup="handlePointerUp"
+      @pointercancel="resetPointer"
+      @click.capture="handleTrackClick"
+    >
       <div 
         v-for="(project, index) in projects" 
         :key="project.title"
@@ -54,6 +61,10 @@ const props = defineProps({
 });
 
 const currentIndex = ref(0);
+const swipeStartX = ref(null);
+const swipeStartY = ref(null);
+const swipeDeltaX = ref(0);
+const didSwipe = ref(false);
 
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % props.projects.length;
@@ -61,6 +72,48 @@ const nextSlide = () => {
 
 const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + props.projects.length) % props.projects.length;
+};
+
+const handlePointerDown = (event) => {
+  if (event.pointerType === 'mouse') return;
+  swipeStartX.value = event.clientX;
+  swipeStartY.value = event.clientY;
+  swipeDeltaX.value = 0;
+  didSwipe.value = false;
+};
+
+const handlePointerMove = (event) => {
+  if (swipeStartX.value === null) return;
+  const deltaX = event.clientX - swipeStartX.value;
+  const deltaY = event.clientY - swipeStartY.value;
+  swipeDeltaX.value = deltaX;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 8) {
+    event.preventDefault();
+  }
+};
+
+const resetPointer = () => {
+  swipeStartX.value = null;
+  swipeStartY.value = null;
+  swipeDeltaX.value = 0;
+};
+
+const handlePointerUp = () => {
+  if (swipeStartX.value === null) return;
+  if (Math.abs(swipeDeltaX.value) >= 45) {
+    didSwipe.value = true;
+    swipeDeltaX.value < 0 ? nextSlide() : prevSlide();
+    window.setTimeout(() => { didSwipe.value = false; }, 0);
+  }
+  resetPointer();
+};
+
+const handleTrackClick = (event) => {
+  if (!didSwipe.value) return;
+  event.preventDefault();
+  event.stopPropagation();
+  didSwipe.value = false;
 };
 
 const handleSlideClick = (index) => {
@@ -203,12 +256,14 @@ const getSlideStyle = (index) => {
   transition: var(--transition-smooth);
 }
 
-.carousel-btn:hover {
-  background: var(--primary-gradient);
-  border-color: transparent;
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-  color: white;
-  transform: translateY(-50%) scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+  .carousel-btn:hover {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+  }
 }
 
 .btn-prev {
@@ -258,6 +313,8 @@ const getSlideStyle = (index) => {
     min-height: 0;
     display: block;
     perspective: none;
+    touch-action: pan-y;
+    user-select: none;
   }
   
   .carousel-3d-slide {
@@ -277,23 +334,24 @@ const getSlideStyle = (index) => {
   }
   
   .btn-prev {
-    left: -4px;
+    left: 8px;
   }
   
   .btn-next {
-    right: -4px;
+    right: 8px;
   }
 
   .carousel-btn {
-    top: auto;
-    bottom: calc(100% + 0.75rem);
-    transform: none;
+    top: 106px;
+    bottom: auto;
+    transform: translateY(-50%);
     width: 42px;
     height: 42px;
+    background: rgba(8, 8, 14, 0.78);
   }
 
-  .carousel-btn:hover {
-    transform: scale(1.06);
+  .carousel-btn:active {
+    transform: translateY(-50%) scale(0.94);
   }
 
   .carousel-dots {

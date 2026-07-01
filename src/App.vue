@@ -115,6 +115,8 @@ const formSubmitted = ref(false);
 let lenis;
 let lenisTicker;
 let scrollContext;
+let viewportMediaQuery;
+let handleViewportChange;
 
 const handleGlobalMouseMove = event => { mouseCoords.value = { x:(event.clientX/window.innerWidth-.5)*2, y:(event.clientY/window.innerHeight-.5)*2 }; };
 const heroCardStyle = computed(() => ({ transform:`rotateX(${-mouseCoords.value.y*6}deg) rotateY(${mouseCoords.value.x*6}deg) translateZ(10px)`, transition:'transform .15s cubic-bezier(.25,1,.5,1)' }));
@@ -144,33 +146,66 @@ onMounted(()=>{
   gsap.ticker.add(lenisTicker);
   gsap.ticker.lagSmoothing(0);
 
-  scrollContext=gsap.context(()=>{
-    sectionElements.forEach((section,index)=>{
+  const setupScrollAnimations=(isMobileViewport)=>{
+    scrollContext=gsap.context(()=>{
+      sectionElements.forEach((section,index)=>{
       const content=section.querySelector(':scope > .container') || section;
-      const entryDistance=reducedMotion?24:96;
-      const exitDistance=reducedMotion?18:72;
-      const entryBlur=reducedMotion?0:7;
+      const entryDistance=reducedMotion ? 24 : isMobileViewport ? 46 : 96;
+      const exitDistance=reducedMotion ? 18 : isMobileViewport ? 34 : 72;
+      const entryBlur=reducedMotion ? 0 : isMobileViewport ? 3 : 7;
+      const exitBlur=reducedMotion ? 0 : isMobileViewport ? 2 : 5;
+      const entryStart=isMobileViewport ? 'top 94%' : 'top 96%';
+      const entryEnd=isMobileViewport ? 'top 68%' : 'top 52%';
+      const revealScrub=reducedMotion ? .15 : isMobileViewport ? .25 : .35;
       if(index>0){
         gsap.fromTo(content,
           {autoAlpha:0,y:entryDistance,scale:.975,filter:`blur(${entryBlur}px)`},
-          {autoAlpha:1,y:0,scale:1,filter:'blur(0px)',ease:'none',scrollTrigger:{trigger:section,start:'top 96%',end:'top 52%',scrub:reducedMotion ? .2 : .8}}
+          {autoAlpha:1,y:0,scale:1,filter:'blur(0px)',ease:'none',scrollTrigger:{trigger:section,start:entryStart,end:entryEnd,scrub:reducedMotion ? .2 : isMobileViewport ? .35 : .8}}
         );
       }
-      if(index<sectionElements.length-1){
-        gsap.to(content,{autoAlpha:0,y:-exitDistance,scale:.985,filter:`blur(${reducedMotion?0:5}px)`,ease:'none',scrollTrigger:{trigger:section,start:'bottom 62%',end:'bottom 16%',scrub:reducedMotion ? .2 : .8}});
+      // Em telas curtas, ocultar pelo fim da seção deixa o container invisível
+      // durante boa parte do retorno. No mobile ele sai naturalmente da viewport.
+      if(!isMobileViewport && index<sectionElements.length-1){
+        gsap.to(content,{
+          autoAlpha:0,
+          y:-exitDistance,
+          scale:.985,
+          filter:`blur(${exitBlur}px)`,
+          ease:'none',
+          scrollTrigger:{
+            trigger:section,
+            // Só oculta quando resta pouco da seção e, no retorno,
+            // começa a revelar assim que ela cruza o topo da viewport.
+            start:'bottom 30%',
+            end:index===3 ? 'bottom 0%' : 'bottom 8%',
+            // Formação responde diretamente ao scroll na passagem pelo Contato.
+            scrub:index===3 ? true : revealScrub
+          }
+        });
       }
-      ScrollTrigger.create({
-        trigger:section,
-        start:'top center',
-        end:'bottom center',
-        onEnter:()=>{activeSectionIndex.value=index;},
-        onEnterBack:()=>{activeSectionIndex.value=index;}
+        ScrollTrigger.create({
+          trigger:section,
+          start:'top center',
+          end:'bottom center',
+          onEnter:()=>{activeSectionIndex.value=index;},
+          onEnterBack:()=>{activeSectionIndex.value=index;}
+        });
       });
     });
-  });
+  };
+
+  viewportMediaQuery=window.matchMedia('(max-width: 768px)');
+  setupScrollAnimations(viewportMediaQuery.matches);
+  handleViewportChange=event=>{
+    scrollContext?.revert();
+    setupScrollAnimations(event.matches);
+    requestAnimationFrame(()=>ScrollTrigger.refresh());
+  };
+  viewportMediaQuery.addEventListener('change',handleViewportChange);
   requestAnimationFrame(()=>ScrollTrigger.refresh());
 });
 onUnmounted(()=>{
+  viewportMediaQuery?.removeEventListener('change',handleViewportChange);
   scrollContext?.revert();
   if(lenisTicker) gsap.ticker.remove(lenisTicker);
   lenis?.destroy();
