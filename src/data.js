@@ -4,7 +4,7 @@ const sharedProfile = {
   avatar: '/assets/eu.png',
   resumeUrl: '#',
   socials: {
-    github: '#',
+    github: 'https://github.com/Gustavo-TS',
     linkedin: 'https://linkedin.com/in/gustavo-tagliatti-sampaio-8989aa323',
     email: 'guths2006@gmail.com',
     instagram: '#'
