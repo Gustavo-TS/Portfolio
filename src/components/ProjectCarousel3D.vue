@@ -8,11 +8,9 @@
     <!-- Trilho 3D dos Cards -->
     <div
       class="carousel-3d-track"
-      @pointerdown="handlePointerDown"
-      @pointermove="handlePointerMove"
-      @pointerup="handlePointerUp"
-      @pointercancel="resetPointer"
-      @click.capture="handleTrackClick"
+      @touchstart.passive="handleTouchStart"
+      @touchend="handleTouchEnd"
+      @touchcancel="resetSwipe"
     >
       <div 
         v-for="(project, index) in projects" 
@@ -63,8 +61,6 @@ const props = defineProps({
 const currentIndex = ref(0);
 const swipeStartX = ref(null);
 const swipeStartY = ref(null);
-const swipeDeltaX = ref(0);
-const didSwipe = ref(false);
 
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % props.projects.length;
@@ -74,46 +70,28 @@ const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + props.projects.length) % props.projects.length;
 };
 
-const handlePointerDown = (event) => {
-  if (event.pointerType === 'mouse') return;
-  swipeStartX.value = event.clientX;
-  swipeStartY.value = event.clientY;
-  swipeDeltaX.value = 0;
-  didSwipe.value = false;
+const handleTouchStart = (event) => {
+  if (event.touches.length !== 1) return;
+  const touch = event.touches[0];
+  swipeStartX.value = touch.clientX;
+  swipeStartY.value = touch.clientY;
 };
 
-const handlePointerMove = (event) => {
-  if (swipeStartX.value === null) return;
-  const deltaX = event.clientX - swipeStartX.value;
-  const deltaY = event.clientY - swipeStartY.value;
-  swipeDeltaX.value = deltaX;
-
-  if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 8) {
-    event.preventDefault();
-  }
-};
-
-const resetPointer = () => {
+const resetSwipe = () => {
   swipeStartX.value = null;
   swipeStartY.value = null;
-  swipeDeltaX.value = 0;
 };
 
-const handlePointerUp = () => {
-  if (swipeStartX.value === null) return;
-  if (Math.abs(swipeDeltaX.value) >= 45) {
-    didSwipe.value = true;
-    swipeDeltaX.value < 0 ? nextSlide() : prevSlide();
-    window.setTimeout(() => { didSwipe.value = false; }, 0);
+const handleTouchEnd = (event) => {
+  if (swipeStartX.value === null || event.changedTouches.length === 0) return;
+  const touch = event.changedTouches[0];
+  const deltaX = touch.clientX - swipeStartX.value;
+  const deltaY = touch.clientY - swipeStartY.value;
+
+  if (Math.abs(deltaX) >= 35 && Math.abs(deltaX) > Math.abs(deltaY)) {
+    deltaX < 0 ? nextSlide() : prevSlide();
   }
-  resetPointer();
-};
-
-const handleTrackClick = (event) => {
-  if (!didSwipe.value) return;
-  event.preventDefault();
-  event.stopPropagation();
-  didSwipe.value = false;
+  resetSwipe();
 };
 
 const handleSlideClick = (index) => {
