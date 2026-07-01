@@ -139,12 +139,27 @@ onMounted(()=>{
   updateDocumentLanguage();
   const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sectionElements=gsap.utils.toArray('.portfolio-section');
+  viewportMediaQuery=window.matchMedia('(max-width: 768px)');
 
-  lenis=new Lenis({lerp:reducedMotion ? .16 : .075,smoothWheel:true,wheelMultiplier:.82,touchMultiplier:1.05});
-  lenis.on('scroll',ScrollTrigger.update);
-  lenisTicker=time=>lenis?.raf(time*1000);
-  gsap.ticker.add(lenisTicker);
-  gsap.ticker.lagSmoothing(0);
+  const startLenis=()=>{
+    if(lenis) return;
+    lenis=new Lenis({lerp:reducedMotion ? .16 : .075,smoothWheel:true,wheelMultiplier:.82});
+    lenis.on('scroll',ScrollTrigger.update);
+    lenisTicker=time=>lenis?.raf(time*1000);
+    gsap.ticker.add(lenisTicker);
+    gsap.ticker.lagSmoothing(0);
+  };
+
+  const stopLenis=()=>{
+    if(lenisTicker) gsap.ticker.remove(lenisTicker);
+    lenis?.destroy();
+    lenis=undefined;
+    lenisTicker=undefined;
+  };
+
+  // O scroll nativo é mais estável em touch apó interações com links,
+  // botões, imagens e campos de formulário.
+  if(!viewportMediaQuery.matches) startLenis();
 
   const setupScrollAnimations=(isMobileViewport)=>{
     scrollContext=gsap.context(()=>{
@@ -194,9 +209,9 @@ onMounted(()=>{
     });
   };
 
-  viewportMediaQuery=window.matchMedia('(max-width: 768px)');
   setupScrollAnimations(viewportMediaQuery.matches);
   handleViewportChange=event=>{
+    event.matches ? stopLenis() : startLenis();
     scrollContext?.revert();
     setupScrollAnimations(event.matches);
     requestAnimationFrame(()=>ScrollTrigger.refresh());
