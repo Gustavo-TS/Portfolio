@@ -209,6 +209,19 @@ const getSlideStyle = (index) => {
   will-change: transform, opacity;
 }
 
+.carousel-3d-slide :deep(.project-card) {
+  filter: blur(1.5px);
+  transition: filter 0.45s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-3d-slide.active :deep(.project-card) {
+  filter: none;
+}
+
+.carousel-3d-slide.active :deep(.project-content) {
+  transform: none;
+}
+
 /* Setas de Navegação */
 .carousel-btn {
   position: absolute;
@@ -309,6 +322,10 @@ const getSlideStyle = (index) => {
 
   .carousel-3d-slide:not(.active) {
     display: none;
+  }
+
+  .carousel-3d-slide :deep(.project-card) {
+    filter: none;
   }
   
   .btn-prev {

@@ -118,7 +118,10 @@ let scrollContext;
 let viewportMediaQuery;
 let handleViewportChange;
 
-const handleGlobalMouseMove = event => { mouseCoords.value = { x:(event.clientX/window.innerWidth-.5)*2, y:(event.clientY/window.innerHeight-.5)*2 }; };
+const handleGlobalMouseMove = event => {
+  if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  mouseCoords.value = { x:(event.clientX/window.innerWidth-.5)*2, y:(event.clientY/window.innerHeight-.5)*2 };
+};
 const heroCardStyle = computed(() => ({ transform:`rotateX(${-mouseCoords.value.y*6}deg) rotateY(${mouseCoords.value.x*6}deg) translateZ(10px)`, transition:'transform .15s cubic-bezier(.25,1,.5,1)' }));
 const avatarParallaxStyle = computed(() => ({
   transform:`perspective(1000px) rotateX(${-mouseCoords.value.y*6}deg) rotateY(${mouseCoords.value.x*6}deg)`,
@@ -128,8 +131,14 @@ const avatarParallaxStyle = computed(() => ({
 const goToSection = index => {
   if(index < 0 || index >= names.length) return;
   const target=document.getElementById(names[index]);
-  if(lenis && target) lenis.scrollTo(target,{offset:-72,duration:1.15});
-  else target?.scrollIntoView({behavior:'smooth',block:'start'});
+  const destinationOffset=index===0 ? 0 : Math.min(200,Math.max(120,window.innerHeight*.18));
+  activeSectionIndex.value=index;
+  if(index===names.length-1){
+    const pageEnd=document.documentElement.scrollHeight-window.innerHeight;
+    if(lenis) lenis.scrollTo(pageEnd,{duration:1.15});
+    else window.scrollTo({top:pageEnd,behavior:'smooth'});
+  } else if(lenis && target) lenis.scrollTo(target,{offset:destinationOffset,duration:1.15});
+  else if(target) window.scrollTo({top:target.offsetTop+destinationOffset,behavior:'smooth'});
   isMobileMenuOpen.value=false;
 };
 const updateDocumentLanguage = () => { const english=language.value==='en'; document.documentElement.lang=english?'en':'pt-BR'; document.title=english?'Gustavo Tagliatti Sampaio | Full Stack Developer Portfolio':'Gustavo Tagliatti Sampaio | Desenvolvedor Full Stack'; };
@@ -166,37 +175,14 @@ onMounted(()=>{
       sectionElements.forEach((section,index)=>{
       const content=section.querySelector(':scope > .container') || section;
       const entryDistance=reducedMotion ? 24 : isMobileViewport ? 46 : 96;
-      const exitDistance=reducedMotion ? 18 : isMobileViewport ? 34 : 72;
       const entryBlur=reducedMotion ? 0 : isMobileViewport ? 3 : 7;
-      const exitBlur=reducedMotion ? 0 : isMobileViewport ? 2 : 5;
       const entryStart=isMobileViewport ? 'top 94%' : 'top 96%';
       const entryEnd=isMobileViewport ? 'top 68%' : 'top 52%';
-      const revealScrub=reducedMotion ? .15 : isMobileViewport ? .25 : .35;
       if(index>0){
         gsap.fromTo(content,
           {autoAlpha:0,y:entryDistance,scale:.975,filter:`blur(${entryBlur}px)`},
           {autoAlpha:1,y:0,scale:1,filter:'blur(0px)',ease:'none',scrollTrigger:{trigger:section,start:entryStart,end:entryEnd,scrub:reducedMotion ? .2 : isMobileViewport ? .35 : .8}}
         );
-      }
-      // Em telas curtas, ocultar pelo fim da seção deixa o container invisível
-      // durante boa parte do retorno. No mobile ele sai naturalmente da viewport.
-      if(!isMobileViewport && index<sectionElements.length-1){
-        gsap.to(content,{
-          autoAlpha:0,
-          y:-exitDistance,
-          scale:.985,
-          filter:`blur(${exitBlur}px)`,
-          ease:'none',
-          scrollTrigger:{
-            trigger:section,
-            // Só oculta quando resta pouco da seção e, no retorno,
-            // começa a revelar assim que ela cruza o topo da viewport.
-            start:'bottom 30%',
-            end:index===3 ? 'bottom 0%' : 'bottom 8%',
-            // Formação responde diretamente ao scroll na passagem pelo Contato.
-            scrub:index===3 ? true : revealScrub
-          }
-        });
       }
         ScrollTrigger.create({
           trigger:section,
@@ -321,15 +307,35 @@ html,body{
 }
 
 @media(max-width:768px){
-  /* Conteúdo estático não captura taps nem gestos; somente controles reais. */
+  html{
+    overflow-x:hidden;
+    overflow-y:auto;
+    height:auto;
+    touch-action:pan-y;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  body{
+    overflow:visible;
+    height:auto;
+    min-height:100%;
+    touch-action:pan-y;
+  }
+
+  .sections-flow,
+  .portfolio-section,
+  .portfolio-section > .container,
+  .glass-panel{
+    touch-action:pan-y;
+  }
+
   .portfolio-section > .container{
-    pointer-events:none;
     user-select:none;
     -webkit-user-select:none;
   }
 
-  .portfolio-section :is(a,button,input,textarea,select,.carousel-3d-track){
-    pointer-events:auto;
+  .portfolio-section :is(a,button,input,textarea,select){
+    touch-action:manipulation;
   }
 
   .portfolio-section :is(input,textarea,select){

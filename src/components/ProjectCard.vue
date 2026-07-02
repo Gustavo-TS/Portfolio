@@ -109,6 +109,7 @@ const glareStyle = computed(() => ({
 }));
 
 const handleMouseMove = (e) => {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const card = cardRef.value;
   if (!card) return;
@@ -132,6 +133,7 @@ const handleMouseMove = (e) => {
 };
 
 const handleMouseEnter = () => {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   isHovering.value = true;
   glareOpacity.value = 1;
 };

@@ -32,6 +32,7 @@ const wrapperStyle = computed(() => {
 });
 
 const handleMouseMove = (e) => {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const container = magneticRef.value;
   if (!container) return;
 
