@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvasRef" class="bg-canvas"></canvas>
+  <canvas ref="canvasRef" class="bg-canvas" aria-hidden="true" role="presentation"></canvas>
 </template>
 
 <script setup>
@@ -52,7 +52,7 @@ class Particle {
       const dy = mouse.y - this.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       
-      if (dist < mouse.radius) {
+      if (dist > 0 && dist < mouse.radius) {
         // Atrai levemente em direção ao mouse
         const force = (mouse.radius - dist) / mouse.radius;
         this.x += (dx / dist) * force * 0.8;

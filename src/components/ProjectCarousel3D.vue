@@ -1,5 +1,17 @@
 <template>
-  <div class="carousel-3d-container">
+  <div
+    class="carousel-3d-container"
+    role="region"
+    aria-roledescription="carousel"
+    :aria-label="language === 'en' ? 'Featured projects' : 'Projetos em destaque'"
+    aria-describedby="carousel-instructions"
+    tabindex="0"
+    @keydown.left.prevent="prevSlide"
+    @keydown.right.prevent="nextSlide"
+    @keydown.home.prevent="currentIndex = 0"
+    @keydown.end.prevent="currentIndex = projects.length - 1"
+  >
+    <p id="carousel-instructions" class="sr-only">{{ language === 'en' ? 'Use the left and right arrow keys to browse projects.' : 'Use as setas esquerda e direita para navegar pelos projetos.' }}</p>
     <!-- Controles do Carrossel (Setas) -->
     <button class="carousel-btn btn-prev" @click="prevSlide" :aria-label="language === 'en' ? 'Previous slide' : 'Slide anterior'">
       <i class="fas fa-chevron-left"></i>
@@ -18,6 +30,8 @@
         class="carousel-3d-slide"
         :class="getSlideClass(index)"
         :style="getSlideStyle(index)"
+        :aria-hidden="index !== currentIndex"
+        :inert="index !== currentIndex"
       >
         <!-- Card Individual com Efeito Tilt (Somente se for o card ativo) -->
         <ProjectCard :project="project" :is-active="index === currentIndex" :language="language" />
@@ -36,9 +50,11 @@
         class="dot-btn"
         :class="{ 'active': index === currentIndex }"
         @click="currentIndex = index"
+        :aria-current="index === currentIndex ? 'true' : undefined"
         :aria-label="language === 'en' ? `Go to project ${index + 1}` : `Ir para projeto ${index + 1}`"
       ></button>
     </div>
+    <p class="sr-only" aria-live="polite">{{ language === 'en' ? `Project ${currentIndex + 1} of ${projects.length}: ${projects[currentIndex]?.title}` : `Projeto ${currentIndex + 1} de ${projects.length}: ${projects[currentIndex]?.title}` }}</p>
   </div>
 </template>
 
@@ -182,6 +198,7 @@ const getSlideStyle = (index) => {
   flex-direction: column;
   align-items: center;
   overflow: visible;
+  border-radius: 24px;
 }
 
 .carousel-3d-track {
@@ -205,7 +222,7 @@ const getSlideStyle = (index) => {
   min-height: 450px;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
-  cursor: pointer;
+  cursor: default;
   will-change: transform, opacity;
 }
 
@@ -264,29 +281,46 @@ const getSlideStyle = (index) => {
 /* Dots Indicadores */
 .carousel-dots {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.25rem;
   margin-top: 2rem;
   z-index: 10;
 }
 
 .dot-btn {
-  width: 10px;
-  height: 10px;
+  position: relative;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: transparent;
   border: none;
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
-.dot-btn:hover {
+.dot-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translate(-50%, -50%);
+  transition: width .25s ease, background-color .25s ease, box-shadow .25s ease;
+}
+
+.dot-btn:hover::after {
   background: rgba(255, 255, 255, 0.5);
 }
 
 .dot-btn.active {
+  background: transparent;
+}
+
+.dot-btn.active::after {
+  width: 24px;
   background: var(--color-primary);
-  width: 25px;
-  border-radius: 10px;
   box-shadow: 0 0 10px var(--color-primary);
 }
 
@@ -351,7 +385,7 @@ const getSlideStyle = (index) => {
 
   .carousel-dots {
     margin-top: 1.1rem;
-    gap: 0.55rem;
+    gap: 0.15rem;
     flex-wrap: wrap;
     justify-content: center;
   }

@@ -1,7 +1,8 @@
 <template>
-  <div 
+  <article
     ref="cardRef"
     class="project-card-container"
+    :aria-label="project.title"
     @mousemove="handleMouseMove"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
@@ -20,7 +21,7 @@
       >
         <img
           :src="project.image"
-          :alt="`Captura de tela do projeto ${project.title}`"
+          :alt="language === 'en' ? `Preview of ${project.title}` : `Prévia do projeto ${project.title}`"
           class="project-img"
           loading="lazy"
           width="640"
@@ -40,16 +41,16 @@
         
         <div class="project-links">
           <a v-if="hasLink(project.demoUrl)" :href="project.demoUrl" target="_blank" rel="noopener noreferrer" class="project-link">
-            <i class="fas fa-external-link-alt" aria-hidden="true"></i> {{ language === 'en' ? 'View project' : 'Ver projeto' }}
+            <i class="fas fa-external-link-alt" aria-hidden="true"></i> {{ language === 'en' ? 'View project' : 'Ver projeto' }}<span class="sr-only">{{ language === 'en' ? ' (opens in a new tab)' : ' (abre em uma nova aba)' }}</span>
           </a>
           <a v-if="hasLink(project.githubUrl)" :href="project.githubUrl" target="_blank" rel="noopener noreferrer" class="project-link">
-            <i class="fab fa-github" aria-hidden="true"></i> {{ language === 'en' ? 'Code' : 'Código' }}
+            <i class="fab fa-github" aria-hidden="true"></i> {{ language === 'en' ? 'Code' : 'Código' }}<span class="sr-only">{{ language === 'en' ? ' (opens in a new tab)' : ' (abre em uma nova aba)' }}</span>
           </a>
           <span v-if="!hasLink(project.demoUrl) && !hasLink(project.githubUrl)" class="project-status"></span>
         </div>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script setup>
@@ -70,6 +71,7 @@ const hasLink = (url) => Boolean(url && url !== '#');
 const logoVariant = computed(() => {
   const image = props.project.image || '';
   const title = (props.project.title || '').toLowerCase();
+  if (image.includes('triso-studio.') || title.includes('trisostudio')) return 'project-img-wrapper--triso';
   if (image.includes('fidelity.')) return 'project-img-wrapper--fidelity';
   if (image.includes('xsfera.')) return 'project-img-wrapper--xsfera';
   if (image.includes('maia.')) return 'project-img-wrapper--maia';
@@ -78,7 +80,7 @@ const logoVariant = computed(() => {
   if (image.includes('bttech.com.br')) return 'project-img-wrapper--bttech';
   return '';
 });
-const isLogoImage = computed(() => Boolean(logoVariant.value));
+const isLogoImage = computed(() => Boolean(logoVariant.value && logoVariant.value !== 'project-img-wrapper--triso'));
 
 const cardRef = ref(null);
 const rotateX = ref(0);
@@ -223,6 +225,21 @@ const handleMouseLeave = () => {
   transform: scale(1.05);
 }
 
+.project-img-wrapper--triso {
+  background: #090812;
+}
+
+.project-img-wrapper--triso .project-img {
+  box-sizing: border-box;
+  object-fit: contain;
+  padding: 0.65rem;
+  transform: scale(0.9);
+}
+
+.project-card:hover .project-img-wrapper--triso .project-img {
+  transform: scale(0.93);
+}
+
 .project-tags {
   position: absolute;
   bottom: 1rem;
@@ -322,6 +339,15 @@ const handleMouseLeave = () => {
 
   .project-img-wrapper--logo .project-img {
     padding: 0.45rem 0.45rem 3rem;
+  }
+
+  .project-img-wrapper--triso .project-img {
+    padding: 0.5rem;
+    transform: scale(0.92);
+  }
+
+  .project-card:hover .project-img-wrapper--triso .project-img {
+    transform: scale(0.92);
   }
 
   .tag {
