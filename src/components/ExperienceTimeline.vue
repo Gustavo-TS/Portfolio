@@ -15,7 +15,7 @@
       </ul>
       <p v-else class="timeline-desc">{{ exp.description }}</p>
       
-      <div class="timeline-tags">
+      <div v-if="exp.tags?.length" class="timeline-tags">
         <span 
           v-for="tag in exp.tags" 
           :key="tag" 
@@ -24,6 +24,7 @@
           {{ tag }}
         </span>
       </div>
+
     </div>
   </div>
 </template>
@@ -66,4 +67,5 @@ defineProps({
   background: var(--color-primary);
   box-shadow: 0 0 8px color-mix(in srgb, var(--color-primary) 65%, transparent);
 }
+
 </style>

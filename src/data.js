@@ -59,14 +59,14 @@ export const portfolioData = {
   skills,
   experiences: [
     {
-      role: 'Desenvolvedor Full Stack Junior',
+      role: 'Desenvolvedor Full Stack',
       company: 'Blue Projects',
       period: '2024 – 2026',
       description: [
         'Contribuí para a evolução de projetos nos setores financeiro, bancário, regulatório, jurídico e educacional, atuando no desenvolvimento e na sustentação de APIs RESTful, microsserviços, infraestrutura e aplicações web escaláveis.',
         'Aumentei a eficiência operacional por meio de integrações bancárias, automações regulatórias, soluções serverless na AWS e aplicações de inteligência artificial generativa voltadas a meios de pagamento, Corporate Banking, compliance e gestão de capital.',
         'Melhorei o desempenho, a estabilidade e a experiência de uso dos sistemas por meio da integração entre front-end e back-end, da implementação de regras de negócio, da otimização de consultas SQL, do desenvolvimento de Stored Procedures e UDFs, além da correção de falhas e da refatoração de código.'
-      ],
+      ]
     }
   ],
   education: [
@@ -174,15 +174,15 @@ export const portfolioData = {
 
 export const portfolioContentEn = {
   profile: {
-    role: 'Full Stack Developer | C#/.NET, Node.js, Vue.js and AWS',
+    role: 'Full Stack Developer',
     about: 'Software Engineering undergraduate with experience in financial services, regulatory compliance and AI-powered solutions. I build robust APIs, serverless architectures and scalable digital products.'
   },
   experiences: [
-    { role: 'Junior Full Stack Developer', company: 'Blue Projects', period: '2024 – 2026', description: [
+    { role: 'Full Stack Developer', company: 'Blue Projects', period: '2024 – 2026', description: [
       'Contributed to the evolution of projects across the financial, banking, regulatory, legal and educational sectors, developing and maintaining RESTful APIs, microservices, infrastructure and scalable web applications.',
       'Increased operational efficiency through banking integrations, regulatory automation, AWS serverless solutions and generative AI applications for payment systems, Corporate Banking, compliance and capital management.',
       'Improved system performance, stability and usability through front-end and back-end integration, business-rule implementation, SQL query optimization, Stored Procedures and UDF development, bug fixing and code refactoring.'
-    ], tags: ['C#', '.NET', 'JavaScript', 'Vue.js', 'SQL', 'AWS'] }
+    ] }
   ],
   education: [
     { role: 'BSc in Software Engineering', company: 'Centro Universitário Eniac', period: 'Jul 2025 – Dec 2026', description: 'Degree in progress focused on software engineering, architecture and development.', tags: ['Higher Education', 'In progress'] },
