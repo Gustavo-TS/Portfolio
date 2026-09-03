@@ -13,38 +13,43 @@ const sharedProfile = {
 };
 
 const projectImages = {
-  trisoStudio: '/assets/projects/triso-studio.png',
+  trisoStudio: '/assets/projects/triso-studio-logo.webp',
   fidelity: '/assets/projects/fidelity.png',
   xsfera: 'https://xsfera.com.br/wp-content/uploads/2022/09/Logo-2.svg',
   maia: '/assets/projects/maia.png',
   blueProjects: 'https://www.blueprojects.com.br/wp-content/uploads/2020/03/blueprojects-logo-headr.png',
   rochaCalderon: 'https://rochacalderon.com.br/wp-content/uploads/2026/03/logo-rocha-calderon.png',
-  bttech: 'https://regulabt.bttech.com.br/assets/logo-small-7fd48107.png'
+  bttech: 'https://regulabt.bttech.com.br/assets/logo-small-7fd48107.png',
+  isabellaVet: '/assets/projects/isabella-vet-logo-preta-transparente.png',
+  gttech: '/assets/projects/gttech-logo-preta.webp',
+  buenoTagliatti: '/assets/projects/cliente-bueno-tagliatti.webp',
+  ecoGru: '/assets/projects/ecogru-logo.png',
+  gymJava: '/assets/projects/gym-java-logo.png'
 };
 
 const skills = [
   { name: 'C#', category: 'Linguagens', icon: 'fas fa-code', color: '#9b4f96' },
-  { name: 'JavaScript ES6+', category: 'Linguagens', icon: 'fab fa-js', color: '#f7df1e' },
-  { name: 'Java', category: 'Linguagens', icon: 'fab fa-java', color: '#f89820' },
-  { name: 'TypeScript', category: 'Linguagens', icon: 'fas fa-code', color: '#3178c6' },
   { name: '.NET Core / .NET Framework', category: 'Frameworks', icon: 'fas fa-layer-group', color: '#512bd4' },
+  { name: 'Java', category: 'Linguagens', icon: 'fab fa-java', color: '#f89820' },
   { name: 'Spring Boot', category: 'Frameworks', icon: 'fas fa-leaf', color: '#6db33f' },
   { name: 'Node.js', category: 'Frameworks', icon: 'fab fa-node-js', color: '#339933' },
+  { name: 'APIs RESTful', category: 'Arquitetura', icon: 'fas fa-server', color: '#a855f7' },
+  { name: 'Microserviços', category: 'Arquitetura', icon: 'fas fa-network-wired', color: '#06b6d4' },
+  { name: 'Mensageria Assíncrona', category: 'Arquitetura', icon: 'fas fa-envelope-open-text', color: '#22d3ee' },
+  { name: 'JavaScript ES6+', category: 'Linguagens', icon: 'fab fa-js', color: '#f7df1e' },
+  { name: 'TypeScript', category: 'Linguagens', icon: 'fas fa-code', color: '#3178c6' },
   { name: 'Vue.js', category: 'Frameworks', icon: 'fab fa-vuejs', color: '#42b883' },
   { name: 'React.js', category: 'Frameworks', icon: 'fab fa-react', color: '#61dafb' },
   { name: 'SQL Server', category: 'Bancos de Dados', icon: 'fas fa-database', color: '#cc2927' },
-  { name: 'Oracle', category: 'Bancos de Dados', icon: 'fas fa-database', color: '#f80000' },
-  { name: 'MySQL', category: 'Bancos de Dados', icon: 'fas fa-database', color: '#4479a1' },
   { name: 'PostgreSQL', category: 'Bancos de Dados', icon: 'fas fa-database', color: '#4169e1' },
+  { name: 'MySQL', category: 'Bancos de Dados', icon: 'fas fa-database', color: '#4479a1' },
+  { name: 'Oracle', category: 'Bancos de Dados', icon: 'fas fa-database', color: '#f80000' },
   { name: 'Stored Procedures', category: 'Bancos de Dados', icon: 'fas fa-gears', color: '#38bdf8' },
   { name: 'UDFs', category: 'Bancos de Dados', icon: 'fas fa-code-branch', color: '#818cf8' },
   { name: 'AWS Lambda / AWS S3', category: 'Cloud', icon: 'fab fa-aws', color: '#ff9900' },
   { name: 'AWS CloudWatch', category: 'Cloud', icon: 'fab fa-aws', color: '#ff4f8b' },
   { name: 'Serverless Framework', category: 'Cloud', icon: 'fas fa-cloud', color: '#fd5750' },
-  { name: 'Microserviços', category: 'Arquitetura', icon: 'fas fa-network-wired', color: '#06b6d4' },
   { name: 'Arquitetura Serverless', category: 'Arquitetura', icon: 'fas fa-cloud-arrow-up', color: '#f59e0b' },
-  { name: 'Mensageria Assíncrona', category: 'Arquitetura', icon: 'fas fa-envelope-open-text', color: '#22d3ee' },
-  { name: 'APIs RESTful', category: 'Arquitetura', icon: 'fas fa-server', color: '#a855f7' },
   { name: 'OpenAI API', category: 'Inteligência Artificial', icon: 'fas fa-brain', color: '#10a37f' },
   { name: 'Git & CI/CD', category: 'Ferramentas', icon: 'fab fa-git-alt', color: '#f05032' },
   { name: 'Scrum / Kanban', category: 'Metodologias', icon: 'fas fa-list-check', color: '#ec4899' },
@@ -54,7 +59,7 @@ const skills = [
 export const portfolioData = {
   profile: {
     ...sharedProfile,
-    about: 'Graduando em Engenharia de Software com experiência no ecossistema de serviços financeiros, compliance regulatório e soluções baseadas em Inteligência Artificial. Desenvolvo APIs robustas, arquiteturas serverless e produtos digitais escaláveis.'
+    about: 'Graduado em Análise e Desenvolvimento de Sistemas e graduando em Engenharia de Software, com experiência no ecossistema de serviços financeiros, compliance regulatório e soluções baseadas em Inteligência Artificial. Desenvolvo APIs robustas, arquiteturas serverless e produtos digitais escaláveis.'
   },
   skills,
   experiences: [
@@ -110,12 +115,6 @@ export const portfolioData = {
   ],
   projects: [
     {
-      title: 'TrisoStudio',
-      description: 'Sistema full stack para gerenciamento de produtos e usuários, com monitoramento de cliques por produto e marketplace. A plataforma centraliza métricas para analisar o interesse do público, acompanhar o desempenho dos canais e apoiar decisões de vendas.',
-      category: 'Full Stack', image: projectImages.trisoStudio, demoUrl: 'https://triso-front.vercel.app/', githubUrl: '#',
-      tags: ['C#', 'ASP.NET', 'React', 'PostgreSQL']
-    },
-    {
       title: 'Fidelity (HSBC/ NBC / Santander)',
       description: 'Desenvolvimento e manutenção de APIs robustas em C# (.NET) focadas em gerenciamento de cartões e sistemas bancários empresariais (Corporate Banking). Integração APIs e otimização de consultas em bancos de dados relacionais para garantir a consistência e a baixa latência exigidas pelo setor bancário.',
       category: 'Fintech', image: projectImages.fidelity, demoUrl: '#', githubUrl: '#',
@@ -169,13 +168,21 @@ export const portfolioData = {
       category: 'Full Stack', image: projectImages.rochaCalderon, demoUrl: '#', githubUrl: '#',
       tags: ['SQL Server', 'JavaScript', 'Vue.js']
     }
+  ],
+  independentProjects: [
+    { title: 'TrisoStudio', description: 'Sistema full stack para gerenciamento de produtos e usuários, com monitoramento de cliques por produto e marketplace e métricas para apoiar decisões de vendas.', category: 'Full Stack', image: projectImages.trisoStudio, demoUrl: 'https://triso-front.vercel.app/', githubUrl: '#', tags: ['C#', 'ASP.NET', 'React', 'PostgreSQL'] },
+    { title: 'Isabella Vet', description: 'Site profissional para atendimento veterinário domiciliar, criado com foco em acolhimento, confiança e uma experiência responsiva para tutores de pets.', category: 'Site institucional', image: projectImages.isabellaVet, demoUrl: 'https://www.isabella.vet.br/', githubUrl: '#', tags: ['Vue.js', 'UX/UI', 'Responsivo', 'SEO'] },
+    { title: 'GTTECH', description: 'Site institucional para um estúdio digital independente, apresentando serviços de criação de sites, landing pages, hospedagem e suporte.', category: 'Site institucional', image: projectImages.gttech, demoUrl: 'https://www.gttechweb.com.br/', githubUrl: '#', tags: ['React', 'UX/UI', 'Responsivo', 'SEO'] },
+    { title: 'Bueno & Tagliatti', description: 'Presença digital para escritório de advocacia e consultoria jurídica, com linguagem visual sóbria e foco em atendimento estratégico e sigiloso.', category: 'Site institucional', image: projectImages.buenoTagliatti, demoUrl: 'https://www.buenotagliatti.com.br/', githubUrl: '#', tags: ['Vue.js', 'UX/UI', 'Responsivo', 'SEO'] },
+    { title: 'EcoGru', description: 'Aplicativo premiado desenvolvido em React Native para incentivar práticas sustentáveis e aproximar a tecnologia da conscientização ambiental.', category: 'Aplicativo mobile', image: projectImages.ecoGru, demoUrl: '#', githubUrl: 'https://github.com/Gustavo-TS/EcoGru_ReactNative', tags: ['React Native', 'Mobile', 'Sustentabilidade'] },
+    { title: 'Gym Java', description: 'Aplicação para cadastrar usuários, organizar categorias e registrar transações de receitas e despesas. As rotas protegidas utilizam autenticação stateless com JWT.', category: 'Back-end', image: projectImages.gymJava, demoUrl: '#', githubUrl: 'https://github.com/Gustavo-TS/gym-JAVA', tags: ['Java', 'Spring Boot', 'JWT', 'API REST'] }
   ]
 };
 
 export const portfolioContentEn = {
   profile: {
     role: 'Full Stack Developer',
-    about: 'Software Engineering undergraduate with experience in financial services, regulatory compliance and AI-powered solutions. I build robust APIs, serverless architectures and scalable digital products.'
+    about: 'Graduate in Systems Analysis and Development and currently pursuing a degree in Software Engineering, with experience in financial services, regulatory compliance and AI-powered solutions. I build robust APIs, serverless architectures and scalable digital products.'
   },
   experiences: [
     { role: 'Full Stack Developer', company: 'Blue Projects', period: '2024 – 2026', description: [
@@ -194,7 +201,6 @@ export const portfolioContentEn = {
     { role: 'English Course', company: 'Fisk Language School', period: 'Jan 2017 – Jul 2020', description: 'Continued English-language education.', tags: ['English', 'Additional Education'] }
   ],
   projects: [
-    { title: 'TrisoStudio', description: 'Full stack system for managing products and users, with click tracking by product and marketplace. The platform centralizes metrics to analyze customer interest, monitor channel performance and support sales decisions.', category: 'Full Stack', image: projectImages.trisoStudio, demoUrl: 'https://triso-front.vercel.app/', githubUrl: '#', tags: ['C#', 'ASP.NET', 'React', 'PostgreSQL'] },
     { title: 'Fidelity — Corporate Banking', description: 'Development and maintenance of robust C#/.NET APIs for card management and corporate banking systems serving clients such as HSBC, NBC and Santander. Optimized integrations and relational queries for consistency and low latency.', category: 'Fintech', image: projectImages.fidelity, demoUrl: '#', githubUrl: '#', tags: ['C#', '.NET', 'APIs', 'SQL'] },
     { title: 'Xsfera AI Assist', description: 'AI solution for instant regulatory queries to the Central Bank of Brazil, combining OpenAI natural-language processing with specialized human curation to improve compliance efficiency and accuracy.', category: 'Artificial Intelligence', image: projectImages.xsfera, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'SQL Server', 'OpenAI API', 'Compliance'] },
     { title: 'Xsfera Capital Monitor', description: 'Capital management and regulatory compliance system for PRIP and PRS5 calculations and controls, including automated DLO reporting to reduce manual errors and improve operations.', category: 'Fintech', image: projectImages.xsfera, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'SQL Server', 'AWS Lambda', 'S3', 'Serverless'] },
@@ -204,5 +210,13 @@ export const portfolioContentEn = {
     { title: 'EPM 2 — Enterprise Process Manager', description: 'Front-end development for the second version of the internal corporate process optimization tool.', category: 'Enterprise', image: projectImages.blueProjects, demoUrl: '#', githubUrl: '#', tags: ['JavaScript', 'Vue.js', 'Front-end'] },
     { title: 'Rocha Calderon Management System', description: 'End-to-end full stack development — infrastructure, APIs and interfaces — for internal management and legal-delivery tracking.', category: 'Full Stack', image: projectImages.rochaCalderon, demoUrl: '#', githubUrl: '#', tags: ['SQL Server', 'JavaScript', 'Vue.js'] },
     { title: 'Studio Juris (BTTECH)', description: 'End-to-end full stack development — infrastructure, APIs and interfaces — for internal management and legal-delivery tracking.', category: 'Full Stack', image: projectImages.bttech, demoUrl: '#', githubUrl: '#', tags: ['SQL Server', 'JavaScript', 'Vue.js'] }
+  ],
+  independentProjects: [
+    { title: 'TrisoStudio', description: 'Full stack system for managing products and users, with click tracking by product and marketplace and metrics that support sales decisions.', category: 'Full Stack', image: projectImages.trisoStudio, demoUrl: 'https://triso-front.vercel.app/', githubUrl: '#', tags: ['C#', 'ASP.NET', 'React', 'PostgreSQL'] },
+    { title: 'Isabella Vet', description: 'Professional website for premium at-home veterinary care, designed around warmth, trust and a responsive experience for pet owners.', category: 'Business website', image: projectImages.isabellaVet, demoUrl: 'https://www.isabella.vet.br/', githubUrl: '#', tags: ['Vue.js', 'UX/UI', 'Responsive', 'SEO'] },
+    { title: 'GTTECH', description: 'Business website for an independent digital studio, presenting website creation, landing page, hosting and support services.', category: 'Business website', image: projectImages.gttech, demoUrl: 'https://www.gttechweb.com.br/', githubUrl: '#', tags: ['React', 'UX/UI', 'Responsive', 'SEO'] },
+    { title: 'Bueno & Tagliatti', description: 'Digital presence for a law and legal consulting firm, with a restrained visual language focused on strategic, confidential service.', category: 'Business website', image: projectImages.buenoTagliatti, demoUrl: 'https://www.buenotagliatti.com.br/', githubUrl: '#', tags: ['Vue.js', 'UX/UI', 'Responsive', 'SEO'] },
+    { title: 'EcoGru', description: 'Award-winning React Native application designed to encourage sustainable practices and connect technology with environmental awareness.', category: 'Mobile application', image: projectImages.ecoGru, demoUrl: '#', githubUrl: 'https://github.com/Gustavo-TS/EcoGru_ReactNative', tags: ['React Native', 'Mobile', 'Sustainability'] },
+    { title: 'Gym Java', description: 'Application for registering users, organizing categories, and recording income and expense transactions. Protected routes use stateless JWT authentication.', category: 'Back-end', image: projectImages.gymJava, demoUrl: '#', githubUrl: 'https://github.com/Gustavo-TS/gym-JAVA', tags: ['Java', 'Spring Boot', 'JWT', 'REST API'] }
   ]
 };

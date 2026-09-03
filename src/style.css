@@ -904,6 +904,68 @@ a {
   align-items: center;
 }
 
+.project-category-tabs {
+  width: fit-content;
+  max-width: calc(100% - 2rem);
+  margin: 1.75rem auto 0;
+  padding: 0.35rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: rgba(12, 12, 18, 0.72);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.project-category-tab {
+  min-height: 44px;
+  padding: 0.65rem 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.project-category-tab:hover {
+  color: var(--text-primary);
+}
+
+.project-category-tab.active {
+  color: #fff;
+  background: var(--primary-gradient);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+}
+
+.project-category-tab:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .project-category-tabs {
+    width: calc(100% - 1rem);
+    max-width: 25rem;
+    border-radius: 18px;
+  }
+
+  .project-category-tab {
+    min-width: 0;
+    padding-inline: 0.65rem;
+    border-radius: 14px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+}
+
 /* EXPERIENCE TIMELINE SECTION */
 .timeline {
   position: relative;

@@ -78,6 +78,11 @@ const logoVariant = computed(() => {
   if (image.includes('blue-projects.') || image.includes('blueprojects')) return 'project-img-wrapper--blue-projects';
   if (image.includes('rocha_calderon') || image.includes('rochacalderon') || title.includes('rocha calderon')) return 'project-img-wrapper--rocha-calderon';
   if (image.includes('bttech.com.br')) return 'project-img-wrapper--bttech';
+  if (image.includes('isabella-vet-logo')) return 'project-img-wrapper--isabella';
+  if (image.includes('cliente-bueno-tagliatti.')) return 'project-img-wrapper--bueno';
+  if (image.includes('gttech-logo-preta.')) return 'project-img-wrapper--gttech';
+  if (image.includes('ecogru-logo.')) return 'project-img-wrapper--ecogru';
+  if (image.includes('gym-java-logo.')) return 'project-img-wrapper--gym';
   return '';
 });
 const isLogoImage = computed(() => Boolean(logoVariant.value && logoVariant.value !== 'project-img-wrapper--triso'));
@@ -194,9 +199,12 @@ const handleMouseLeave = () => {
 }
 
 .project-img-wrapper--logo {
-  background: rgba(100, 116, 139, 0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(145deg, rgba(154, 161, 173, 0.72), rgba(103, 110, 124, 0.68));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -18px 36px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(16px) saturate(0.8);
+  -webkit-backdrop-filter: blur(16px) saturate(0.8);
 }
 
 .project-img-wrapper--logo .project-img {
@@ -209,12 +217,29 @@ const handleMouseLeave = () => {
 .project-img-wrapper--bttech,
 .project-img-wrapper--xsfera,
 .project-img-wrapper--maia,
-.project-img-wrapper--blue-projects {
-  --logo-scale: 1;
+.project-img-wrapper--blue-projects,
+.project-img-wrapper--gttech {
+  --logo-scale: 0.9;
 }
 
 .project-img-wrapper--rocha-calderon {
   --logo-scale: 0.95;
+}
+
+.project-img-wrapper--isabella {
+  --logo-scale: 0.86;
+}
+
+.project-img-wrapper--bueno {
+  --logo-scale: 0.86;
+}
+
+.project-img-wrapper--ecogru {
+  --logo-scale: 1;
+}
+
+.project-img-wrapper--gym {
+  --logo-scale: 1;
 }
 
 .project-card:hover .project-img-wrapper--logo .project-img {
@@ -226,14 +251,17 @@ const handleMouseLeave = () => {
 }
 
 .project-img-wrapper--triso {
-  background: #090812;
+  background: linear-gradient(145deg, rgba(154, 161, 173, 0.72), rgba(103, 110, 124, 0.68));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -18px 36px rgba(15, 23, 42, 0.08);
 }
 
 .project-img-wrapper--triso .project-img {
   box-sizing: border-box;
   object-fit: contain;
   padding: 0.65rem;
-  transform: scale(0.9);
+  transform: scale(1);
 }
 
 .project-card:hover .project-img-wrapper--triso .project-img {
